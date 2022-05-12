@@ -6,3 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+
+handlebars = {version = "4.2.2", features = ["rust-embed"]}
+axum = "0.5.4"
+tokio = { version = "1.18.2", features = ["full"] }
+serde_json = "1.0.81"
+rust-embed = "6.4.0"
