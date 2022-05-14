@@ -1,11 +1,13 @@
 use axum::{
     routing::get,
     Router, Extension,
-    response::{Html, IntoResponse}
+    response::{Html}
 };
+
 use handlebars::{
     Handlebars
 };
+
 use rust_embed::RustEmbed;
 use serde_json::json;
 
@@ -17,9 +19,10 @@ struct Assets;
 async fn main () {
     let mut reg = Handlebars::new();
     reg.register_embed_templates::<Assets>().unwrap();
-    println!("{:?}", reg.get_templates());
+
     let app = Router::new()
-                        .route("/", get(render_upload))
+                        .route("/gallery", get(gallery))
+                        .route("/upload_image", get(upload))
                         .layer(&Extension(reg));
 
     // run it with hyper on localhost:3000
@@ -29,8 +32,14 @@ async fn main () {
         .unwrap();
 }
 
-async fn render_upload (Extension(reg) : Extension<Handlebars<'_>>) -> Html<String>{
+
+async fn upload (Extension(reg) : Extension<Handlebars<'_>>) -> Html<String>{
     let rendered = reg.render("upload_image.html", &json!({})).unwrap();
+    Html(rendered)
+}
+
+async fn gallery (Extension(reg) : Extension<Handlebars<'_>>) -> Html<String>{
+    let rendered = reg.render("gallery.html", &json!({})).unwrap();
     Html(rendered)
 }
 

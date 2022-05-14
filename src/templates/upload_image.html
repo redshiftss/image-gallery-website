@@ -1,4 +1,6 @@
-<label for="upl">Upload an image:</label>
-<input type="file" id="upl" name="upl"
-       accept="image/png, image/jpeg">
-<button type="button">Upload</button>
+<form action="http://localhost:2000/upload" method="post" enctype="multipart/form-data">
+       <label for="upl">Upload an image:</label>
+       <input type="file" id="picture" name="picture"
+              accept="image/png, image/jpeg">
+       <button type="submit">Upload</button>
+</form>
